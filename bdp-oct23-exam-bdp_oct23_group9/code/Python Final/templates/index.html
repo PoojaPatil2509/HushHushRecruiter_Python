@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Interface</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome Recruiter!</h1>
+        <form action="/" method="POST">
+            <label for="job_role">Select Job Role:</label>
+            <select name="job_role" id="job_role" class="form-control">
+                <option value="backend developer">backend_developer</option>
+                <option value="devOps engineer">DevOps Engineer</option>
+                <option value="data scientist">Data Scientist</option>
+                <option value="mobile app developer">Mobile App Developer</option>
+                <option value="web developer">Web Developer</option>
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary">Get Top Candidates</button>
+        </form>
+        <hr>
+        {% if candidates %}
+        <h2>Top Candidates for {{job_role}}</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Owner Display Name</th>
+                    <th>Owner Reputation</th>
+                    <th>Owner Email Address</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in candidates %}
+                <tr>
+                    <td>{{ candidate['owner_display_name'] }}</td>
+                    <td>{{ candidate['owner_reputation'] }}</td>
+                    <td>{{ candidate['owner_email_address'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    <div class="text-center mt-3">
+        <p>Click the button below to send emails to the top candidates.</p>
+        <button onclick="sendEmails()" class="btn btn-primary">Send Emails</button>
+    </div>
+</body>
+</html>
